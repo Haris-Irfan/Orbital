@@ -2,21 +2,32 @@ import React, { useState } from 'react';
 import { Alert, ImageBackground, Pressable, SafeAreaView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { auth } from '../../../firebaseConfig'; 
+import { signInWithEmailAndPassword } from 'firebase/auth'; 
 
 export default function LoginForm() {
     const [click, setClick] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const handleLogin = async () => {
+        try {
+            await signInWithEmailAndPassword(auth, username, password);
+            Alert.alert("Login Successfully!", "You are now logged in.");
+        } catch (error: any) {
+            Alert.alert("Login Failed");
+        }
+    };
+
     return (
-        <ImageBackground source={require("../assets/images/VI-SG-IT-UIbackground.png")} style={styles.background}>
+        <ImageBackground source={require("../../../assets/images/VI-SG-IT-UIbackground.png")} style={styles.background}>
             <SafeAreaView style={styles.container}>
                 <FontAwesome6 name='landmark-dome' style={styles.icon} size={60} />
                 <Text style={styles.title}>VI-SG-IT!</Text>
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.input}
-                        placeholder='EMAIL OR USERNAME'
+                        placeholder='EMAIL'
                         value={username}
                         onChangeText={setUsername}
                         autoCorrect={false}
@@ -45,7 +56,7 @@ export default function LoginForm() {
                 </View>
 
                 <View style={styles.buttonView}>
-                    <Pressable style={styles.button} onPress={() => Alert.alert("Login Successfully!")}>
+                    <Pressable style={styles.button} onPress={handleLogin}>
                         <Text style={styles.buttonText}>LOGIN</Text>
                     </Pressable>
                     <Text style={styles.optionsText}>OR LOGIN WITH</Text>
