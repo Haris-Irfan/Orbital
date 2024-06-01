@@ -4,7 +4,7 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { auth } from '../../../firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 const backgroundImage = require('../../../assets/images/VI-SG-IT-UIbackground.png');
 
@@ -12,11 +12,13 @@ export default function LoginForm() {
     const [click, setClick] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const router = useRouter();
 
     const handleLogin = async () => {
         try {
             await signInWithEmailAndPassword(auth, username, password);
             Alert.alert("Login Successfully!", "You are now logged in.");
+            router.push('/directory');
         } catch (error: any) {
             Alert.alert("Login Failed", error.message);
         }

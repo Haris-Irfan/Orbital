@@ -1,10 +1,10 @@
 import { View, StyleSheet } from "react-native";
-import SignupForm from "./screens/signup_page";
+import Directory from "./screens/directory";
 
-export default function SignupPage() {
+export default function DirectoryPage() {
     return (
         <View style={style.background}>
-            <SignupForm />
+            < Directory/>
         </View>
     );
 }
@@ -12,6 +12,6 @@ export default function SignupPage() {
 const style = StyleSheet.create({
     background: {
         flex: 1,
-        resizeMode: 'cover'
+        resizeMode: 'cover',
     }
 });
